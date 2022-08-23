@@ -92,11 +92,9 @@ function play() {
                               imageWidth: 330,
                               imageHeight: 200,
                               imageAlt: 'image',
-                              showCancelButton: true,
+                              showCancelButton: false,
                               confirmButtonText: '<a class="restart">Новая игра</a>',
                               confirmButtonColor: 'rgb(7, 126, 17)',
-                              cancelButtonText: '<a class="restart" href="#">Не хочу больше играть</a>',
-                              cancelButtonColor: '#d33',
                             }).then((result) => {
                               if (result.isConfirmed)
                                 window.location.reload();
