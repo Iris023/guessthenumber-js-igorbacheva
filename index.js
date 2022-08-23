@@ -16,6 +16,7 @@ const input = document.querySelector('#guess');
 const btn = document.querySelector('#btn');
 const randomNumber = Math.floor(Math.random()*20 +1);
 
+
 btn.addEventListener('click', play);
 
 input.addEventListener('keypress', function(e){
@@ -29,7 +30,11 @@ let i = 0;
 function play() {
   const userNumber = document.querySelector('#guess').value;
 
-  if (userNumber > 20 || userNumber<1) {
+  if (input.value.length === 0) {
+    return false;
+  } 
+
+  else if (userNumber > 20 || userNumber<1) {
     Swal.fire({
       icon: 'error',
       title: 'Ой!',
@@ -63,16 +68,19 @@ function play() {
                                   showCancelButton: true,
                                   confirmButtonColor: '#6ECB63',
                                   cancelButtonColor: '#d33',
-                                  confirmButtonText: '<a class="restart" href="index.html">Новая игра</a>',
+                                  confirmButtonText: '<a class="restart">Новая игра</a>',
                                   cancelButtonText: '<a class="restart" href="#">Не хочу больше играть</a>'
-                                });
+                                }).then((result) => {
+                                  if (result.isConfirmed) 
+                                    window.location.reload();
+                                  });
                         }
                         else if (userNumber < randomNumber) {
                           Swal.fire('Не угадал! Попробуй число побольше')
                         }
       
                         else if (userNumber > randomNumber) {
-                                    Swal.fire('Не угадал! Попробуй число поменьше')
+                          Swal.fire('Не угадал! Попробуй число поменьше')
                         }
       
                         else {
@@ -85,22 +93,27 @@ function play() {
                               imageHeight: 200,
                               imageAlt: 'image',
                               showCancelButton: true,
-                              confirmButtonText: '<a class="restart" href="index.html">Новая игра</a>',
+                              confirmButtonText: '<a class="restart">Новая игра</a>',
                               confirmButtonColor: 'rgb(7, 126, 17)',
                               cancelButtonText: '<a class="restart" href="#">Не хочу больше играть</a>',
                               cancelButtonColor: '#d33',
-                            })
+                            }).then((result) => {
+                              if (result.isConfirmed)
+                                window.location.reload();
+                              })
                           else {
                             Swal.fire({
                               icon: 'cancel',
                               title: 'У тебя уже закончились попытки!',
                               showConfirmButton: true,
-                              confirmButtonText: '<a class="restart" href="index.html">/a>',
+                              confirmButtonText: '<a class="restart">ОК</a>',
                               confirmButtonColor: 'rgb(7, 126, 17)',
-                            })
-                            
+                            }).then((result) => {
+                              if (result.isConfirmed)
+                                window.location.reload();
+                              })
                           }
-                          }
+                        }
     }
   }
 }
